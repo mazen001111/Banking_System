@@ -1,0 +1,10 @@
+1001|Ahmed Mohamed|5000.00|savings
+1002|Sara Ali|12000.50|current
+1003|Mohamed Hassan|800.00|savings
+1004|Nour Ibrahim|25000.00|current
+1005|Khaled Mahmoud|3200.75|savings
+1006|Yasmine Tarek|150.00|savings
+1007|Omar Farouk|9800.00|current
+1008|Layla Sayed|450.25|savings
+1009|Hassan Adel|67000.00|current
+1010|Dina Mostafa|2100.00|savings
