@@ -4,6 +4,11 @@
 #include <vector>
 #include "Bank.h"
 #include "Utils.h"
+#include "Transaction.h"
+#include "Account.h"
+#include "LinkedList.h"
+#include "HashTable.h"
+#include "BST.h"
 using namespace std;
 
 
