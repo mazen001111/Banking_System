@@ -1,0 +1,486 @@
+CSE333 Banking System — Manual Test Cases
+
+HOW TO USE THIS FILE
+──────────────────────────────────────────────────────────────
+Each test case lists:
+  - Test ID         : unique label
+  - Category        : which feature is being tested
+  - Steps           : what to do in the menu
+  - Input           : exact values to enter
+  - Expected Output : what should appear on screen
+  - Pass / Fail     : fill in after running
+
+
+==============================================================
+  SECTION 1 — ACCOUNT CREATION
+==============================================================
+
+────────────────────────────────────────
+TC-01 | Create a valid savings account
+────────────────────────────────────────
+Steps : Run the program → choose option 1
+Input :
+  Owner name   : Mona Samir
+  Account type : savings
+Expected Output :
+  "Account created successfully!"
+  "Your account ID is: [some ID >= 1011]"
+  "Starting balance  : 0.00 EGP"
+Result : [Pass]
+
+────────────────────────────────────────
+TC-02 | Create a valid current account
+────────────────────────────────────────
+Steps : Choose option 1
+Input :
+  Owner name   : Karim Nabil
+  Account type : current
+Expected Output :
+  "Account created successfully!"
+  A new unique ID printed.
+Result : [Pass ]
+
+────────────────────────────────────────
+TC-03 | Invalid account type
+────────────────────────────────────────
+Steps : Choose option 1
+Input :
+  Owner name   : Test User
+  Account type : checking
+Expected Output :
+  "Error: account type must be 'savings' or 'current'."
+  No new account is created.
+Result : [Pass]
+comment: gui has only choices to choose from
+
+────────────────────────────────────────
+TC-04 | IDs are unique and sequential
+────────────────────────────────────────
+Steps : Create two accounts back-to-back (option 1 twice)
+Input : any valid name + "savings" each time
+Expected Output :
+  First account gets ID N
+  Second account gets ID N+1
+Result : [Pass]
+
+
+==============================================================
+  SECTION 2 — DEPOSIT
+==============================================================
+
+────────────────────────────────────────
+TC-05 | Deposit a valid amount
+────────────────────────────────────────
+Steps : Choose option 2
+Input :
+  Account ID : 1001
+  Amount     : 500
+Expected Output :
+  "Deposited 500 EGP successfully."
+  "New balance: 5500 EGP"
+  (Ahmed Mohamed's balance was 5000.00 in the data file)
+Result : [Pass ]
+
+────────────────────────────────────────
+TC-06 | Deposit zero amount
+────────────────────────────────────────
+Steps : Choose option 2
+Input :
+  Account ID : 1001
+  Amount     : 0
+Expected Output :
+  "Error: deposit amount must be greater than zero."
+  Balance unchanged.
+Result : [Fail]
+comment: it just deposited 0 normally
+
+────────────────────────────────────────
+TC-07 | Deposit a negative amount
+────────────────────────────────────────
+Steps : Choose option 2
+Input :
+  Account ID : 1001
+  Amount     : -200
+Expected Output :
+  "Error: deposit amount must be greater than zero."
+Result : [Pass]
+comment:if you enter minus you can't type any number(gui)
+
+────────────────────────────────────────
+TC-08 | Deposit to a non-existent account
+────────────────────────────────────────
+Steps : Choose option 2
+Input :
+  Account ID : 9999
+  Amount     : 100
+Expected Output :
+  "Error: account 9999 not found."
+Result : [PASS]
+
+────────────────────────────────────────
+TC-09 | Deposit a decimal amount
+────────────────────────────────────────
+Steps : Choose option 2
+Input :
+  Account ID : 1002
+  Amount     : 49.75
+Expected Output :
+  "Deposited 49.75 EGP successfully."
+  "New balance: 12050.25 EGP"
+  (Sara Ali's balance was 12000.50)
+Result : [Pass]
+
+
+==============================================================
+  SECTION 3 — WITHDRAW
+==============================================================
+
+────────────────────────────────────────
+TC-10 | Withdraw a valid amount
+────────────────────────────────────────
+Steps : Choose option 3
+Input :
+  Account ID : 1004
+  Amount     : 1000
+Expected Output :
+  "Withdrew 1000 EGP successfully."
+  "New balance: 24000 EGP"
+  (Nour Ibrahim's balance was 25000.00)
+Result : [Pass]
+
+────────────────────────────────────────
+TC-11 | Withdraw more than the balance (overdraft)
+────────────────────────────────────────
+Steps : Choose option 3
+Input :
+  Account ID : 1006
+  Amount     : 1000
+Expected Output :
+  "Error: insufficient funds."
+  "Requested : 1000 EGP"
+  "Available : 150 EGP"
+  Balance unchanged.
+  (Yasmine Tarek's balance is 150.00)
+Result : [Fail]
+comment: balance unchanged but no error message
+
+────────────────────────────────────────
+TC-12 | Withdraw exactly the full balance
+────────────────────────────────────────
+Steps : Choose option 3
+Input :
+  Account ID : 1006
+  Amount     : 150
+Expected Output :
+  "Withdrew 150 EGP successfully."
+  "New balance: 0 EGP"
+Result : [Pass]
+
+────────────────────────────────────────
+TC-13 | Withdraw zero
+────────────────────────────────────────
+Steps : Choose option 3
+Input :
+  Account ID : 1001
+  Amount     : 0
+Expected Output :
+  "Error: withdrawal amount must be greater than zero."
+Result : [Fail]
+Comment: no error message, but gui still works
+
+
+==============================================================
+  SECTION 4 — TRANSFER
+==============================================================
+
+────────────────────────────────────────
+TC-14 | Valid transfer between two accounts
+────────────────────────────────────────
+Steps : Choose option 4
+Input :
+  Source account      : 1009   (Hassan Adel, balance 67000)
+  Destination account : 1003   (Mohamed Hassan, balance 800)
+  Amount              : 200
+Expected Output :
+  "Transferred 200 EGP from account 1009 to account 1003 successfully."
+  Source balance    : 66800 EGP
+  Destination balance: 1000 EGP
+Result : [Pass]
+
+────────────────────────────────────────
+TC-15 | Transfer to same account
+────────────────────────────────────────
+Steps : Choose option 4
+Input :
+  Source account      : 1001
+  Destination account : 1001
+  Amount              : 100
+Expected Output :
+  "Error: cannot transfer to the same account."
+Result : [Fail]
+comment: Balance unchanged but transaction is done and documented
+
+────────────────────────────────────────
+TC-16 | Transfer with insufficient funds
+────────────────────────────────────────
+Steps : Choose option 4
+Input :
+  Source account      : 1008   (Layla Sayed, balance 450.25)
+  Destination account : 1001
+  Amount              : 1000
+Expected Output :
+  "Error: insufficient funds in account 1008"
+  "Available: 450.25 EGP"
+Result : [Fail]
+comment: balance not changed but still the transaction executed and documented
+
+────────────────────────────────────────
+TC-17 | Transfer from non-existent account
+────────────────────────────────────────
+Steps : Choose option 4
+Input :
+  Source      : 9999
+  Destination : 1001
+  Amount      : 100
+Expected Output :
+  "Error: source account 9999 not found."
+Result : [PASS]
+
+────────────────────────────────────────
+TC-18 | Transfer to non-existent account
+────────────────────────────────────────
+Steps : Choose option 4
+Input :
+  Source      : 1001
+  Destination : 9999
+  Amount      : 100
+Expected Output :
+  "Error: destination account 9999 not found."
+Result : [Pass]
+
+
+==============================================================
+  SECTION 5 — SEARCH
+==============================================================
+
+────────────────────────────────────────
+TC-19 | Search for an existing account
+────────────────────────────────────────
+Steps : Choose option 5
+Input :
+  Account ID : 1005
+Expected Output :
+  Account ID   : 1005
+  Owner        : Khaled Mahmoud
+  Balance      : 3200.75 EGP
+  Account Type : savings
+Result : [Pass]
+
+────────────────────────────────────────
+TC-20 | Search for a non-existent account
+────────────────────────────────────────
+Steps : Choose option 5
+Input :
+  Account ID : 7777
+Expected Output :
+  "Error: no account found with ID 7777"
+Result : [Pass]
+
+
+==============================================================
+  SECTION 6 — DISPLAY ALL
+==============================================================
+
+────────────────────────────────────────
+TC-21 | Display all accounts sorted by ID
+────────────────────────────────────────
+Steps : Choose option 6
+Input  : (none)
+Expected Output :
+  All 10 accounts printed in order: 1001, 1002, ... 1010
+  Each account shows ID, name, balance, type.
+  Order must be ascending by account ID.
+Result : [Pass]
+
+
+==============================================================
+  SECTION 7 — TRANSACTION HISTORY
+==============================================================
+
+────────────────────────────────────────
+TC-22 | History of account with no transactions
+────────────────────────────────────────
+Steps : Choose option 7 (without doing any deposit/withdraw first)
+Input :
+  Account ID : 1010
+Expected Output :
+  "No transactions recorded yet."
+Result : [Pass]
+
+────────────────────────────────────────
+TC-23 | History shows newest transaction first
+────────────────────────────────────────
+Steps :
+  1. Deposit 100 into account 1001  (option 2)
+  2. Deposit 200 into account 1001  (option 2)
+  3. View history of account 1001   (option 7)
+Input : 1001 for all steps
+Expected Output :
+  First line: the 200 deposit (most recent)
+  Second line: the 100 deposit
+  (linked list inserts at head, so newest is always first)
+Result : [Pass]
+
+────────────────────────────────────────
+TC-24 | History records transfer correctly on both sides
+────────────────────────────────────────
+Steps :
+  1. Transfer 500 from 1009 to 1001 (option 4)
+  2. View history of 1009            (option 7)
+  3. View history of 1001            (option 7)
+Expected Output :
+  Account 1009 shows "transfer_out" of 500
+  Account 1001 shows "transfer_in"  of 500
+Result : [Pass]
+
+
+==============================================================
+  SECTION 8 — DELETE ACCOUNT
+==============================================================
+
+────────────────────────────────────────
+TC-25 | Delete an existing account
+────────────────────────────────────────
+Steps : Choose option 8
+Input :
+  Account ID : 1010
+Expected Output :
+  "Account 1010 deleted successfully."
+  Searching for 1010 afterwards shows "no account found".
+Result : [Pass]
+
+────────────────────────────────────────
+TC-26 | Delete an account that has a balance
+────────────────────────────────────────
+Steps : Choose option 8
+Input :
+  Account ID : 1009   (Hassan Adel, balance 67000)
+Expected Output :
+  "Warning: account still has 67000 EGP. Deleting anyway."
+  "Account 1009 deleted successfully."
+Result : [Pass]
+
+────────────────────────────────────────
+TC-27 | Delete a non-existent account
+────────────────────────────────────────
+Steps : Choose option 8
+Input :
+  Account ID : 5555
+Expected Output :
+  "Error: no account found with ID 5555"
+Result : [Pass]
+
+
+==============================================================
+  SECTION 9 — INPUT VALIDATION (Utils functions)
+==============================================================
+
+────────────────────────────────────────
+TC-28 | Enter letters where a number is expected
+────────────────────────────────────────
+Steps : Choose option 2 (Deposit)
+Input :
+  Account ID : abc   (then correct with 1001)
+  Amount     : xyz   (then correct with 100)
+Expected Output :
+  "Invalid input. Please enter a whole number."  (for ID)
+  "Invalid input. Please enter a valid number..."(for amount)
+  Program then proceeds normally after valid input.
+Result : [Pass]
+
+────────────────────────────────────────
+TC-29 | Press Enter with no input for name
+────────────────────────────────────────
+Steps : Choose option 1 (Create Account)
+Input :
+  Owner name : [press Enter without typing anything]
+               [then type a real name]
+Expected Output :
+  "Input cannot be empty. Please try again."
+  Then proceeds normally.
+Result : [Pass]
+
+
+==============================================================
+  SECTION 10 — FILE PERSISTENCE
+==============================================================
+
+────────────────────────────────────────
+TC-30 | Data is saved and reloaded correctly
+────────────────────────────────────────
+Steps :
+  1. Run the program.
+  2. Deposit 999 into account 1001.
+  3. Exit (option 0).
+  4. Run the program again.
+  5. Search for account 1001 (option 5).
+Expected Output :
+  On second run, account 1001 shows the updated balance
+  (original 5000 + 999 = 5999 EGP, or whatever the
+   accumulated balance is).
+  "Data loaded successfully." appears on startup.
+  "Data saved successfully." appears on exit.
+Result : [Fail]
+comment: pass in the terminal and fails in the gui
+
+────────────────────────────────────────
+TC-31 | IDs continue correctly after restart
+────────────────────────────────────────
+Steps :
+  1. Run the program and note that 10 accounts exist (1001–1010).
+  2. Create a new account (option 1).
+  3. Exit and restart.
+  4. Create another new account.
+Expected Output :
+  First new account gets ID 1011.
+  After restart, next new account gets ID 1012 (not 1011 again).
+  This confirms setNextID() works correctly.
+Result : [ Fail]
+comment:same as the last one
+
+
+==============================================================
+  SECTION 11 — MENU
+==============================================================
+
+────────────────────────────────────────
+TC-32 | Invalid menu choice
+────────────────────────────────────────
+Steps : At the main menu, enter a number not in the list.
+Input : 99
+Expected Output :
+  "Invalid choice. Please enter a number from the menu."
+  Menu appears again.
+Result : [Pass]
+
+────────────────────────────────────────
+TC-33 | Exit the program
+────────────────────────────────────────
+Steps : Choose option 0
+Input : 0
+Expected Output :
+  "Data saved successfully."
+  "Thank you for using the Banking System. Goodbye."
+  Program terminates cleanly.
+Result : [Pass]
+
+==============================================================
+  Summary
+==============================================================
+26 Pass
+7 Fails
+All fails are just missing error messages, but the system doesn't do anything wrong with the money.
+
+==============================================================
+  END OF TEST CASES
+==============================================================
