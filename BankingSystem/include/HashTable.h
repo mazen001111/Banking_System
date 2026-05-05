@@ -4,13 +4,11 @@
 #include <vector>
 #include "Account.h"
 
-
 class HashTable {
 public:
     HashTable();
     ~HashTable();
 
-    
     void insert(Account* account);
     Account* search(int accountID);
     bool remove(int accountID);
@@ -18,7 +16,6 @@ public:
     int getCount() const;
 
 private:
-    
     int hashFunction(int id);
     static const int TABLE_SIZE = 101;
     std::vector<Account*> table[TABLE_SIZE];

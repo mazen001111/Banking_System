@@ -1,4 +1,4 @@
-#include "HashTable.h"
+#include "../include/HashTable.h"
 
 HashTable::HashTable() : count(0) {
 }

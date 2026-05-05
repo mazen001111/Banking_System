@@ -3,11 +3,10 @@
 
 #include <string>
 #include <iostream>
-using namespace std;
 
 struct Transaction {
-    string timestamp;
-    string type;
+    std::string timestamp;
+    std::string type;
     double amount;
     double balanceAfter;
 };

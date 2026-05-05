@@ -3,17 +3,14 @@
 
 #include "Account.h"
 
-class BST
-{
+class BST {
 private:
-    struct Node
-    {
+    struct Node {
         Account* account;
         Node* left;
         Node* right;
 
-        Node(Account* acc)
-        {
+        Node(Account* acc) {
             account = acc;
             left = nullptr;
             right = nullptr;

@@ -1,21 +1,19 @@
-#include "LinkedList.h"
+#include "../include/LinkedList.h"
 #include <iostream>
+using namespace std;
 
 LinkedList::LinkedList() {
     head  = nullptr;
     count = 0;
 }
+
 void LinkedList::addTransaction(Transaction t) {
     ListNode* newNode = new ListNode(t);
-    // point the new node to whatever was previously first
     newNode->next = head;
-    // the new node is now the first
     head  = newNode;
     count++;
 }
-// Why insert at head and not tail?
-// Because the user always wants to see the MOST RECENT transactions first.
-// The head is always the newest — no traversal needed to add new ones.
+
 void LinkedList::printHistory() {
     if (head == nullptr) {
         cout << "No transactions recorded yet." << endl;
@@ -23,7 +21,7 @@ void LinkedList::printHistory() {
     }
 
     ListNode* current = head;
-    int       index   = 1;
+    int index = 1;
     while (current != nullptr) {
         cout << index << ". ";
         printTransaction(current->data);
@@ -31,6 +29,7 @@ void LinkedList::printHistory() {
         index++;
     }
 }
+
 void LinkedList::printLastN(int n) {
     ListNode* current = head;
     int printed = 0;
@@ -40,20 +39,22 @@ void LinkedList::printLastN(int n) {
         printed++;
     }
 }
+
 void LinkedList::clear() {
     ListNode* current = head;
     while (current != nullptr) {
         ListNode* toDelete = current;
         current = current->next;
-        delete toDelete;    // free the memory of each node
+        delete toDelete;
     }
     head  = nullptr;
     count = 0;
 }
+
 int LinkedList::getCount() {
     return count;
 }
+
 LinkedList::~LinkedList() {
     clear();
 }
-

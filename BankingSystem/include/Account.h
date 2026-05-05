@@ -3,7 +3,6 @@
 
 #include <string>
 #include "LinkedList.h"
-using namespace std;
 
 // ─────────────────────────────────────────
 //  Account — represents one bank account.
@@ -17,20 +16,16 @@ using namespace std;
 // ─────────────────────────────────────────
 
 struct Account {
+    int accountID;           // unique number assigned by Utils::generateID()
+    std::string ownerName;   // full name of the customer
+    double balance;          // current amount of money in the account (EGP)
+    std::string accountType; // either "savings" or "current"
+    LinkedList history;      // every transaction this account ever had
 
-    int         accountID;    // unique number assigned by Utils::generateID(), e.g. 1001
-    string ownerName;    // full name of the customer, e.g. "Ahmed Mohamed"
-    double      balance;      // current amount of money in the account (EGP)
-    string accountType;  // either "savings" or "current"
-    LinkedList  history;      // every transaction this account ever had, newest first
-
-    // Default constructor — initialises numeric fields to safe values.
-    // Without this, accountID and balance would contain garbage memory.
+    // Default constructor
     Account() : accountID(0), balance(0.0) {}
 };
 
-// Prints one account's details to the screen in a clean, readable format.
-// Declared here so both Account.cpp and BST.cpp can use it.
 void printAccount(const Account& acc);
 
 #endif
