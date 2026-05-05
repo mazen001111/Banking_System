@@ -1,6 +1,6 @@
 #ifndef BANK_H
-#define BANK_H
 
+#define BANK_H
 #include <string>
 #include "HashTable.h"
 #include "BST.h"
